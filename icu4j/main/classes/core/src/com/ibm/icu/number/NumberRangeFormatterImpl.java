@@ -433,8 +433,7 @@ class NumberRangeFormatterImpl {
         StandardPlural resultPlural = fPluralRanges.resolve(firstParameters.plural, secondParameters.plural);
 
         // Get and return the new Modifier
-        assert firstParameters.obj == secondParameters.obj;
-        assert firstParameters.signum == secondParameters.signum;
+        assert first.semanticallyEquivalent(second);
         Modifier mod = firstParameters.obj.getModifier(firstParameters.signum, resultPlural);
         assert mod != null;
         return mod;
