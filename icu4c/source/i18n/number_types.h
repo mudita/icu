@@ -118,11 +118,11 @@ class U_I18N_API AffixPatternProvider {
 
     virtual ~AffixPatternProvider();
 
-    virtual char16_t charAt(int flags, int i) const = 0;
+    virtual char16_t charAt(int32_t flags, int32_t i) const = 0;
 
-    virtual int length(int flags) const = 0;
+    virtual int32_t length(int32_t flags) const = 0;
 
-    virtual UnicodeString getString(int flags) const = 0;
+    virtual UnicodeString getString(int32_t flags) const = 0;
 
     virtual bool hasCurrencySign() const = 0;
 
@@ -174,7 +174,7 @@ class U_I18N_API Modifier {
      *            formatted.
      * @return The number of characters (UTF-16 code units) that were added to the string builder.
      */
-    virtual int32_t apply(FormattedStringBuilder& output, int leftIndex, int rightIndex,
+    virtual int32_t apply(FormattedStringBuilder& output, int32_t leftIndex, int32_t rightIndex,
                           UErrorCode& status) const = 0;
 
     /**

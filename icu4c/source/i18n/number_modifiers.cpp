@@ -69,7 +69,7 @@ AdoptingModifierStore::~AdoptingModifierStore()  {
 }
 
 
-int32_t ConstantAffixModifier::apply(FormattedStringBuilder &output, int leftIndex, int rightIndex,
+int32_t ConstantAffixModifier::apply(FormattedStringBuilder &output, int32_t leftIndex, int32_t rightIndex,
                                      UErrorCode &status) const {
     // Insert the suffix first since inserting the prefix will change the rightIndex
     int length = output.insert(rightIndex, fSuffix, fField, status);
@@ -154,7 +154,7 @@ SimpleModifier::SimpleModifier()
         : fField(kUndefinedField), fStrong(false), fPrefixLength(0), fSuffixLength(0) {
 }
 
-int32_t SimpleModifier::apply(FormattedStringBuilder &output, int leftIndex, int rightIndex,
+int32_t SimpleModifier::apply(FormattedStringBuilder &output, int32_t leftIndex, int32_t rightIndex,
                               UErrorCode &status) const {
     return formatAsPrefixSuffix(output, leftIndex, rightIndex, status);
 }
@@ -284,7 +284,7 @@ SimpleModifier::formatTwoArgPattern(const SimpleFormatter& compiled, FormattedSt
 }
 
 
-int32_t ConstantMultiFieldModifier::apply(FormattedStringBuilder &output, int leftIndex, int rightIndex,
+int32_t ConstantMultiFieldModifier::apply(FormattedStringBuilder &output, int32_t leftIndex, int32_t rightIndex,
                                           UErrorCode &status) const {
     int32_t length = output.insert(leftIndex, fPrefix, status);
     if (fOverwrite) {
@@ -374,7 +374,7 @@ CurrencySpacingEnabledModifier::CurrencySpacingEnabledModifier(const FormattedSt
     }
 }
 
-int32_t CurrencySpacingEnabledModifier::apply(FormattedStringBuilder &output, int leftIndex, int rightIndex,
+int32_t CurrencySpacingEnabledModifier::apply(FormattedStringBuilder &output, int32_t leftIndex, int32_t rightIndex,
                                               UErrorCode &status) const {
     // Currency spacing logic
     int length = 0;

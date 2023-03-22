@@ -1880,7 +1880,7 @@ void DecimalFormat::doFastFormatInt32(int32_t input, bool isNegative, UnicodeStr
             *(--ptr) = fields->fastData.cpGroupingSeparator;
             group = 1;
         }
-        std::div_t res = std::div(input, 10);
+        const auto res = std::div(input, int32_t{10});
         *(--ptr) = static_cast<char16_t>(fields->fastData.cpZero + res.rem);
         input = res.quot;
     }

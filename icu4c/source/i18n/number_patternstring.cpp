@@ -945,7 +945,7 @@ PatternStringUtils::convertLocalized(const UnicodeString& input, const DecimalFo
     table[10][standIdx] = u"#";
     table[10][localIdx] = symbols.getConstSymbol(DecimalFormatSymbols::kDigitSymbol);
     for (int i = 0; i < 10; i++) {
-        table[11 + i][standIdx] = u'0' + i;
+        table[11 + i][standIdx] = static_cast<char16_t >(u'0' + i);
         table[11 + i][localIdx] = symbols.getConstDigitSymbol(i);
     }
 

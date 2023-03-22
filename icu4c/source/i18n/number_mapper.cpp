@@ -391,11 +391,11 @@ void PropertiesAffixPatternProvider::setTo(const DecimalFormatProperties& proper
     fCurrencyAsDecimal = properties.currencyAsDecimal;
 }
 
-char16_t PropertiesAffixPatternProvider::charAt(int flags, int i) const {
+char16_t PropertiesAffixPatternProvider::charAt(int32_t flags, int32_t i) const {
     return getStringInternal(flags).charAt(i);
 }
 
-int PropertiesAffixPatternProvider::length(int flags) const {
+int32_t PropertiesAffixPatternProvider::length(int32_t flags) const {
     return getStringInternal(flags).length();
 }
 

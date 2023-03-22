@@ -293,7 +293,7 @@ int32_t DecimalQuantity::getExponent() const {
     return exponent;
 }
 
-void DecimalQuantity::adjustExponent(int delta) {
+void DecimalQuantity::adjustExponent(int32_t delta) {
     exponent = exponent + delta;
 }
 
@@ -560,15 +560,15 @@ void DecimalQuantity::_setToDecNum(const DecNum& decnum, UErrorCode& status) {
 DecimalQuantity DecimalQuantity::fromExponentString(UnicodeString num, UErrorCode& status) {
     if (num.indexOf(u'e') >= 0 || num.indexOf(u'c') >= 0
                 || num.indexOf(u'E') >= 0 || num.indexOf(u'C') >= 0) {
-        int32_t ePos = num.lastIndexOf('e');
+        int32_t ePos = num.lastIndexOf(u'e');
         if (ePos < 0) {
-            ePos = num.lastIndexOf('c');
+            ePos = num.lastIndexOf(u'c');
         }
         if (ePos < 0) {
-            ePos = num.lastIndexOf('E');
+            ePos = num.lastIndexOf(u'E');
         }
         if (ePos < 0) {
-            ePos = num.lastIndexOf('C');
+            ePos = num.lastIndexOf(u'C');
         }
         int32_t expNumPos = ePos + 1;
         UnicodeString exponentStr = num.tempSubString(expNumPos, num.length() - expNumPos);
@@ -608,7 +608,7 @@ DecimalQuantity DecimalQuantity::fromExponentString(UnicodeString num, UErrorCod
 }
 
 int32_t DecimalQuantity::getVisibleFractionCount(UnicodeString value) {
-    int decimalPos = value.indexOf('.') + 1;
+    int decimalPos = value.indexOf(u'.') + 1;
     if (decimalPos == 0) {
         return 0;
     } else {
@@ -623,7 +623,7 @@ int64_t DecimalQuantity::toLong(bool truncateIfOverflow) const {
     uint64_t result = 0L;
     int32_t upperMagnitude = exponent + scale + precision - 1;
     if (truncateIfOverflow) {
-        upperMagnitude = std::min(upperMagnitude, 17);
+        upperMagnitude = std::min(upperMagnitude, int32_t{17});
     }
     for (int32_t magnitude = upperMagnitude; magnitude >= 0; magnitude--) {
         result = result * 10 + getDigitPos(magnitude - scale - exponent);
@@ -1004,13 +1004,13 @@ UnicodeString DecimalQuantity::toPlainString() const {
         sb.append(u'0');
     }
     for (; p >= 0; p--) {
-        sb.append(u'0' + getDigitPos(p - scale - exponent));
+        sb.append(static_cast<char16_t >(u'0' + getDigitPos(p - scale - exponent)));
     }
     if (lower < 0) {
         sb.append(u'.');
     }
     for(; p >= lower; p--) {
-        sb.append(u'0' + getDigitPos(p - scale - exponent));
+        sb.append(static_cast<char16_t >(u'0' + getDigitPos(p - scale - exponent)));
     }
     return sb;
 }
@@ -1036,13 +1036,13 @@ UnicodeString DecimalQuantity::toExponentString() const {
         sb.append(u'0');
     }
     for (; p >= 0; p--) {
-        sb.append(u'0' + getDigitPos(p - scale));
+        sb.append(static_cast<char16_t >(u'0' + getDigitPos(p - scale)));
     }
     if (lower < 0) {
         sb.append(u'.');
     }
     for(; p >= lower; p--) {
-        sb.append(u'0' + getDigitPos(p - scale));
+        sb.append(static_cast<char16_t >(u'0' + getDigitPos(p - scale)));
     }
 
     if (exponent != 0) {
@@ -1066,11 +1066,11 @@ UnicodeString DecimalQuantity::toScientificString() const {
     int32_t upperPos = precision - 1;
     int32_t lowerPos = 0;
     int32_t p = upperPos;
-    result.append(u'0' + getDigitPos(p));
+    result.append(static_cast<char16_t >(u'0' + getDigitPos(p)));
     if ((--p) >= lowerPos) {
         result.append(u'.');
         for (; p >= lowerPos; p--) {
-            result.append(u'0' + getDigitPos(p));
+            result.append(static_cast<char16_t >(u'0' + getDigitPos(p)));
         }
     }
     result.append(u'E');
@@ -1089,7 +1089,7 @@ UnicodeString DecimalQuantity::toScientificString() const {
     }
     int32_t insertIndex = result.length();
     while (_scale > 0) {
-        std::div_t res = std::div(_scale, 10);
+        const auto res = std::div(_scale, int32_t{10});
         result.insert(insertIndex, u'0' + res.rem);
         _scale = res.quot;
     }

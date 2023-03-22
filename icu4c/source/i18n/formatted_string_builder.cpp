@@ -433,7 +433,7 @@ UnicodeString FormattedStringBuilder::toDebugString() const {
             }
             sb.append(c);
         } else {
-            sb.append(u'0' + fieldAt(i).getCategory());
+            sb.append(static_cast<char16_t>(u'0' + fieldAt(i).getCategory()));
         }
     }
     sb.append(u"]>", -1);

@@ -4183,7 +4183,7 @@ case $as_dir/ in #((
 	      test -s conftest.dir/conftest.one &&
 	      test -s conftest.dir/conftest.two
 	    then
-	      ac_cv_path_install="$as_dir/$ac_prog$ac_exec_ext -c"
+	      ac_cv_path_install="$as_dir/$ac_prog$ac_exec_ext -cD"
 	      break 3
 	    fi
 	  fi
@@ -5341,6 +5341,7 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 *-dec-osf*) icu_cv_host_frag=mh-alpha-osf ;;
 *-*-nto*)	icu_cv_host_frag=mh-qnx ;;
 *-ncr-*)	icu_cv_host_frag=mh-mpras ;;
+arm-none-eabi)	icu_cv_host_frag=mh-arm-none-eabi ;;
 *) 		icu_cv_host_frag=mh-unknown ;;
 esac
 

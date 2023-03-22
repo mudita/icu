@@ -251,7 +251,7 @@ int32_t EraRules::getStartYear(int32_t eraIdx, UErrorCode& status) const {
         status = U_ILLEGAL_ARGUMENT_ERROR;
         return year;
     }
-    int fields[3];
+    int32_t fields[3];
     decodeDate(startDates[eraIdx], fields);
     year = fields[0];
 
@@ -305,7 +305,7 @@ void EraRules::initCurrentEra() {
         localMillis += (rawOffset + dstOffset);
     }
 
-    int year, month0, dom, dow, doy, mid;
+    int32_t year, month0, dom, dow, doy, mid;
     Grego::timeToFields(localMillis, year, month0, dom, dow, doy, mid);
     int currentEncodedDate = encodeDate(year, month0 + 1 /* changes to 1-base */, dom);
     int eraIdx = numEras - 1;

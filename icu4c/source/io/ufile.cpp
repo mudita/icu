@@ -21,7 +21,7 @@
 */
 
 #include "unicode/platform.h"
-#if U_PLATFORM == U_PF_CYGWIN && defined(__STRICT_ANSI__)
+#if (U_PLATFORM == U_PF_CYGWIN && defined(__STRICT_ANSI__)) || (U_PLATFORM == U_PF_UNKNOWN)
 /* GCC on cygwin (not msys2) with -std=c++11 or newer has stopped defining fileno,
    unless gcc extensions are enabled (-std=gnu11).
    fileno is POSIX, but is not standard ANSI C.
